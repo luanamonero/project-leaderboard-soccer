@@ -27,6 +27,15 @@ class MatchsServices {
 
   static async create(data: Match) {
     const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress } = data;
+    if(homeTeam ===  awayTeam) return  { code: StatusCode.UNAUTHENTICATED, message: MessageError.equal}
+
+    const homeTeamClub = await Clubs.findOne({ where: { id: Number(data.homeTeam) } });
+    const awayTeamClub = await Clubs.findOne({ where: { id: Number(data.awayTeam) } });
+
+    if (!homeTeam || !awayTeam) {
+      return  { code: StatusCode.UNAUTHENTICATED, message: MessageError.teamNotFound}
+    }
+
     const match = await Matchs.create({
       homeTeam,
       awayTeam,
