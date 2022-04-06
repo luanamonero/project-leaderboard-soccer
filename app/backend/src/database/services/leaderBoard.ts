@@ -2,8 +2,6 @@ import { ClassificationI, CreateMatchI, LeaderBoardMatchs } from '../interfaces'
 import Clubs from '../models/Clubs';
 import Matchs from '../models/Matchs';
 
-// Questão consultada do pullrequest Julio Cesar Arana, devido a dificuldade da lógica!
-// Todos os créditos ao Julio Cesar Arana!!
 
 class LeaderBoardServices {
   static getPoints(data: CreateMatchI[]): ClassificationI {
