@@ -17,26 +17,7 @@ class MatchsController {
     return res.status(code).json(response);
   }
 
-  static isEqual(param1: Match, param2: Match) {
-    if (param1 === param2) return true;
-  }
-
-  static async create(req: Request, res: Response) {
-    const isEqual = MatchsController.isEqual(req.body.homeTeam, req.body.awayTeam);
-
-    if (isEqual) {
-      return res.status(StatusCode.UNAUTHENTICATED)
-        .json({ message: MessageError.equal });
-    }
-
-    const homeTeam = await Clubs.findOne({ where: { id: Number(req.body.homeTeam) } });
-    const awayTeam = await Clubs.findOne({ where: { id: Number(req.body.awayTeam) } });
-
-    if (!homeTeam || !awayTeam) {
-      return res.status(StatusCode.UNAUTHENTICATED)
-        .json({ message: MessageError.teamNotFound });
-    }
-
+ static async create(req: Request, res: Response) {
     const { code, response }: CodeResponse = await MatchsServices.create(req.body);
     return res.status(code).json(response);
   }
